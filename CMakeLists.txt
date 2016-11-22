@@ -6,6 +6,11 @@ set( CTL_MINOR_VERSION 5 )
 set( CTL_PATCH_VERSION 0 )
 set( CTL_VERSION ${CTL_MAJOR_VERSION}.${CTL_MINOR_VERSION}.${CTL_PATCH_VERSION} )
 
+set(DEPENDENCIES_DIR ${CMAKE_BINARY_DIR}/deps)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
 ## Make install directories overrideable
 set( INSTALL_LIB_DIR lib CACHE PATH "Install directory for libraries" )
 set( INSTALL_BIN_DIR bin CACHE PATH "Install directory for executable binaries" )
@@ -19,18 +24,18 @@ endif()
 set(INSTALL_CMAKE_DIR ${DEF_INSTALL_CMAKE_DIR} CACHE PATH "Install directory for project CMake files" )
 
 # use, i.e. don't skip the full RPATH for the build tree
-SET(CMAKE_SKIP_BUILD_RPATH  FALSE)
+set(CMAKE_SKIP_BUILD_RPATH  FALSE)
 # when building, don't use the install RPATH already
 # (but later on when installing)
-SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE) 
+set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE) 
 #SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 # add the automatically determined parts of the RPATH
 # which point to directories outside the build tree to the install RPATH
-SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 # the RPATH to be used when installing, but only if it's not a system directory
-LIST(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib" isSystemDir)
+list(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib" isSystemDir)
 IF("${isSystemDir}" STREQUAL "-1")
-  SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+  set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 ENDIF("${isSystemDir}" STREQUAL "-1")
 
 
@@ -42,12 +47,14 @@ foreach( p LIB BIN INCLUDE CMAKE DOC)
   endif()
 endforeach()
 
-option(ENABLE_SHARED "Enable Shared Libraries" ON)
+#Build always static libs
+option(BUILD_SHARED_LIBS "Enable Shared Libraries" OFF)
+option(ENABLE_SHARED "Enable Shared Libraries" OFF)
 
 if ( ENABLE_SHARED )
-set( DO_SHARED SHARED )
+  set( DO_SHARED SHARED )
 else()
-set( DO_SHARED STATIC )
+  set( DO_SHARED STATIC )
 endif()
 
 # Find packages and set up global settings
@@ -61,13 +68,16 @@ include_directories( "${PROJECT_SOURCE_DIR}" "${PROJECT_BINARY_DIR}" )
 add_definitions( -DPACKAGE="CTL" -DVERSION="${CTL_VERSION}" )
 add_subdirectory(doc)
 add_subdirectory(lib)
-add_subdirectory(ctlrender)
 add_subdirectory(OpenEXR_CTL)
-add_subdirectory(unittest EXCLUDE_FROM_ALL)
+add_subdirectory(unittest)
+
+if (OpenEXR_FOUND)
+  add_subdirectory(ctlrender)
+endif()
 
 # Add all targets to the build-tree export set
 export( TARGETS IlmCtl IlmCtlMath IlmCtlSimd FILE "${PROJECT_BINARY_DIR}/CTLLibraryDepends.cmake" )
-export(PACKAGE CTL)
+export( PACKAGE CTL )
  
 # Create a CTLBuildTreeSettings.cmake file for the use from the build tree
 file(RELATIVE_PATH CONF_REL_INCLUDE_DIR "${INSTALL_CMAKE_DIR}" "${INSTALL_INCLUDE_DIR}")
@@ -76,8 +86,8 @@ configure_file(config/CTLConfig.cmake.in "${PROJECT_BINARY_DIR}/CTLConfig.cmake"
 configure_file(config/CTLConfigVersion.cmake.in "${PROJECT_BINARY_DIR}/CTLConfigVersion.cmake" @ONLY)
 
 if ( PKG_CONFIG_FOUND )
-configure_file(config/CTL.pc.in "${PROJECT_BINARY_DIR}/CTL.pc" @ONLY)
-install( FILES "${PROJECT_BINARY_DIR}/CTL.pc" DESTINATION lib/pkgconfig COMPONENT dev )
+  configure_file(config/CTL.pc.in "${PROJECT_BINARY_DIR}/CTL.pc" @ONLY)
+  install( FILES "${PROJECT_BINARY_DIR}/CTL.pc" DESTINATION lib/pkgconfig COMPONENT dev )
 endif()
 
 install( FILES

@@ -1,5 +1,8 @@
 include_directories( "${CMAKE_CURRENT_SOURCE_DIR}" )
 
+include_directories( ${IlmBase_INCLUDE_DIRS} )
+link_directories( ${IlmBase_LIBRARY_DIRS} )
+
 add_library( IlmCtl ${DO_SHARED}
  CtlAddr.cpp
  CtlAlign.cpp
@@ -21,8 +24,7 @@ add_library( IlmCtl ${DO_SHARED}
  CtlStdType.cpp
 )
 
-target_link_libraries( IlmCtl ${IlmBase_LDFLAGS_OTHER} )
-target_link_libraries( IlmCtl Iex IlmThread Half )
+target_link_libraries( IlmCtl ${IlmBase_LIBRARIES} )
 
 set_target_properties( IlmCtl PROPERTIES
   VERSION ${CTL_VERSION}
