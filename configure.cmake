@@ -21,14 +21,14 @@ if( IlmBase_FOUND )
 else()
   message( STATUS "IlmBase will be acquired" )
   execute_process(COMMAND git clone git://github.com/openexr/openexr.git ${DEPENDENCIES_DIR}/openexr)
-  
+
   set(IlmBase_SRC_PATH ${DEPENDENCIES_DIR}/openexr/IlmBase)
   set(IlmBase_BUILD_PATH ${CMAKE_BINARY_DIR}/build/deps/openexr/IlmBase)
-  
+
   add_subdirectory(${IlmBase_SRC_PATH})
-  
+
   set(IlmBase_FOUND TRUE)
-  
+
   set(IlmBase_INCLUDE_DIR ${IlmBase_BUILD_PATH}/config/
                           ${IlmBase_SRC_PATH}/Imath/
                           ${IlmBase_SRC_PATH}/Half/
@@ -37,16 +37,16 @@ else()
                           ${IlmBase_SRC_PATH}/IlmThread/
                           ${IlmBase_SRC_PATH}/Imath/
                           CACHE PATHS "IlmBase_INCLUDE_DIR" FORCE)
-                          
+
   set(IlmBase_INCLUDE_DIRS ${IlmBase_INCLUDE_DIR} CACHE PATH "IlmBase include dirs" FORCE)
-  
+
   set(IlmBase_LIBRARY  ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_STATIC_LIBRARY_PREFIX}Half${CMAKE_STATIC_LIBRARY_SUFFIX}
                        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_STATIC_LIBRARY_PREFIX}Iex-2_2${CMAKE_STATIC_LIBRARY_SUFFIX}
                        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_STATIC_LIBRARY_PREFIX}IexMath-2_2${CMAKE_STATIC_LIBRARY_SUFFIX}
                        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_STATIC_LIBRARY_PREFIX}IlmThread-2_2${CMAKE_STATIC_LIBRARY_SUFFIX}
                        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_STATIC_LIBRARY_PREFIX}Imath-2_2${CMAKE_STATIC_LIBRARY_SUFFIX}
-                       CACHE FILEPATH "IlmBase LIBRARY" FORCE)   
-                       
+                       CACHE FILEPATH "IlmBase LIBRARY" FORCE)
+
   set(IlmBase_LIBRARIES ${IlmBase_LIBRARY} CACHE FILEPATH "IlmBase LIBRARIES" FORCE)
   set(IlmBase_LIBRARY_DIRS ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} CACHE PATHS "IlmBase LIBRARY DIRS" FORCE)
 endif()
@@ -75,13 +75,29 @@ else()
   message( WARNING "Unable to find OpenEXR libraries, disabling" )
 endif()
 
-find_package( AcesContainer )
+find_package( AcesContainer QUIET )
 if ( AcesContainer_FOUND )
   message( STATUS "Found AcesContainer, version ${AcesContainer_VERSION}" )
+elseif(NOT WIN32)
+  message( STATUS "AcesContainer will be acquired" )
+
+  execute_process(COMMAND git clone git://github.com/ampas/aces_container.git ${DEPENDENCIES_DIR}/acescontainer)
+
+  set(AcesContainer_SRC_PATH ${DEPENDENCIES_DIR}/acescontainer)
+  set(AcesContainer_BUILD_PATH ${CMAKE_BINARY_DIR}/build/deps/acescontainer)
+
+  add_subdirectory(${AcesContainer_SRC_PATH})
+
+  set(AcesContainer_FOUND TRUE)
+
+  set(AcesContainer_INCLUDE_DIRS ${AcesContainer_SRC_PATH} CACHE PATH "AcesContainer include dirs" FORCE)
+  set(AcesContainer_LIBRARY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_SHARED_LIBRARY_PREFIX}AcesContainer${CMAKE_SHARED_LIBRARY_SUFFIX}
+      CACHE FILEPATH "AcesContainer LIBRARY" FORCE)
+  set(AcesContainer_LIBRARIES ${AcesContainer_LIBRARY} CACHE FILEPATH "AcesContainer LIBRARIES" FORCE)
+  set(AcesContainer_LIBRARY_DIRS ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} CACHE PATHS "AcesContainer LIBRARY DIRS" FORCE)
+elseif( PKG_CONFIG_FOUND )
+  pkg_check_modules( AcesContainer AcesContainer )
 else()
-  if ( PKG_CONFIG_FOUND )
-    pkg_check_modules( AcesContainer AcesContainer )
-  else()
-    message( WARNING "Unable to find AcesContainer libraries, disabling" )
-  endif()
+  message( WARNING "Unable to find AcesContainer libraries, disabling" )
 endif()
+

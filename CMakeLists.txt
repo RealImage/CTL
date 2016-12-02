@@ -27,7 +27,7 @@ set(INSTALL_CMAKE_DIR ${DEF_INSTALL_CMAKE_DIR} CACHE PATH "Install directory for
 set(CMAKE_SKIP_BUILD_RPATH  FALSE)
 # when building, don't use the install RPATH already
 # (but later on when installing)
-set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE) 
+set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
 #SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 # add the automatically determined parts of the RPATH
 # which point to directories outside the build tree to the install RPATH
@@ -78,7 +78,7 @@ endif()
 # Add all targets to the build-tree export set
 export( TARGETS IlmCtl IlmCtlMath IlmCtlSimd FILE "${PROJECT_BINARY_DIR}/CTLLibraryDepends.cmake" )
 export( PACKAGE CTL )
- 
+
 # Create a CTLBuildTreeSettings.cmake file for the use from the build tree
 file(RELATIVE_PATH CONF_REL_INCLUDE_DIR "${INSTALL_CMAKE_DIR}" "${INSTALL_INCLUDE_DIR}")
 configure_file(config/CTLBuildTreeSettings.cmake.in "${PROJECT_BINARY_DIR}/CTLBuildTreeSettings.cmake" @ONLY)
