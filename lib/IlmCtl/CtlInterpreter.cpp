@@ -80,7 +80,7 @@
     #include <stdlib.h>
     #include <io.h>
     #include <time.h>
-    #define lrand48  rand
+    #include "rand48.h"
 #else
     #include <unistd.h>
 #endif

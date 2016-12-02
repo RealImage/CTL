@@ -3,26 +3,35 @@ include_directories( "${CMAKE_CURRENT_SOURCE_DIR}" )
 include_directories( ${IlmBase_INCLUDE_DIRS} )
 link_directories( ${IlmBase_LIBRARY_DIRS} )
 
-add_library( IlmCtl ${DO_SHARED}
- CtlAddr.cpp
- CtlAlign.cpp
- CtlExc.cpp
- CtlFunctionCall.cpp
- CtlInterpreter.cpp
- CtlLContext.cpp
- CtlLex.cpp
- CtlMessage.cpp
- CtlModule.cpp
- CtlModuleSet.cpp
- CtlParser.cpp
- CtlRcPtr.cpp
- CtlSymbolTable.cpp
- CtlSyntaxTree.cpp
- CtlTokens.cpp
- CtlType.cpp
- CtlTypeStorage.cpp
- CtlStdType.cpp
-)
+set(IlmCtl_SRC_LIST  CtlAddr.cpp
+                     CtlAlign.cpp
+                     CtlExc.cpp
+                     CtlFunctionCall.cpp
+                     CtlInterpreter.cpp
+                     CtlLContext.cpp
+                     CtlLex.cpp
+                     CtlMessage.cpp
+                     CtlModule.cpp
+                     CtlModuleSet.cpp
+                     CtlParser.cpp
+                     CtlRcPtr.cpp
+                     CtlSymbolTable.cpp
+                     CtlSyntaxTree.cpp
+                     CtlTokens.cpp
+                     CtlType.cpp
+                     CtlTypeStorage.cpp
+                     CtlStdType.cpp
+    )
+
+# fix for lrand48 on Windows
+if (WIN32)
+  include_directories( "${CMAKE_CURRENT_SOURCE_DIR}/lrand48" )
+  set(IlmCtl_SRC_LIST ${IlmCtl_SRC_LIST} 
+                      ${CMAKE_CURRENT_SOURCE_DIR}/lrand48/_rand48.cpp 
+                      ${CMAKE_CURRENT_SOURCE_DIR}/lrand48/lrand48.cpp) 
+endif()
+
+add_library( IlmCtl ${DO_SHARED} ${IlmCtl_SRC_LIST})
 
 target_link_libraries( IlmCtl ${IlmBase_LIBRARIES} )
 
