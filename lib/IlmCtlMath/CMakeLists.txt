@@ -1,5 +1,8 @@
 include_directories( "${CMAKE_CURRENT_SOURCE_DIR}" "${PROJECT_SOURCE_DIR}/lib/IlmCtl" )
 
+include_directories( ${IlmBase_INCLUDE_DIRS} )
+link_directories( ${IlmBase_LIBRARY_DIRS} )
+
 add_library( IlmCtlMath ${DO_SHARED}
   CtlColorSpace.cpp
   CtlLookupTable.cpp

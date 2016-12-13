@@ -1,3 +1,4 @@
+include_directories( ${IlmBase_INCLUDE_DIRS} )
 
 add_executable(IlmCtlTest 
     main.cpp
@@ -15,8 +16,8 @@ include_directories( "${CMAKE_CURRENT_SOURCE_DIR}"
                      "${PROJECT_SOURCE_DIR}/lib/IlmCtl"  
                      "${PROJECT_SOURCE_DIR}/lib/IlmCtlSimd" )
                      
-target_link_libraries( IlmCtlTest IlmCtlSimd IlmCtlMath IlmCtl )
-target_link_libraries( IlmCtlTest ${IlmBase_LIBRARIES} ${IlmBase_LDFLAGS_OTHER} )
+target_link_libraries(IlmCtlTest IlmCtlSimd IlmCtlMath IlmCtl)
+target_link_libraries(IlmCtlTest ${IlmBase_LIBRARIES})
 
 add_test( IlmCtl IlmCtlTest )
 add_dependencies(check IlmCtlTest)
@@ -58,5 +59,5 @@ file(
         testVaryingReturn.ctl
         testVSArrays.ctl
     DESTINATION
-        ${CMAKE_CURRENT_BINARY_DIR}
+        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
 )

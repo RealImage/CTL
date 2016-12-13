@@ -60,11 +60,10 @@
 //-----------------------------------------------------------------------------
 
 #include <CtlTypeStorage.h>
-#include <string>
 #include <half.h>
 #include <CtlExc.h>
+#include <string>
 #include <string.h>
-#include <alloca.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>

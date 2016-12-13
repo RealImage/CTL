@@ -53,9 +53,16 @@
 ///////////////////////////////////////////////////////////////////////////
 
 #include <CtlExc.h>
-#include <stdarg.h>
 #include <stdio.h>
-#include <alloca.h>
+#include <stdarg.h>
+#ifdef WIN32
+#  ifndef va_copy
+#    define va_copy( a, b ) a = b
+#  endif
+#  include <malloc.h>
+#else
+#  include <alloca.h>
+#endif
 #include <string.h>
 
 namespace Ctl {

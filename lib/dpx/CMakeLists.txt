@@ -1,5 +1,8 @@
 include_directories( "${CMAKE_CURRENT_SOURCE_DIR}" )
 
+include_directories( ${IlmBase_INCLUDE_DIRS} )
+link_directories( ${IlmBase_LIBRARY_DIRS} )
+
 add_library( ctldpx
  dpx.cc
  dpx_raw.cc
@@ -10,4 +13,6 @@ add_library( ctldpx
  dpx_validate.cc
  dpx_rw.cc
 )
+
+target_link_libraries( ctldpx ${IlmBase_LIBRARIES} )
 

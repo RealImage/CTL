@@ -58,6 +58,7 @@
 #include <assert.h>
 #include <CtlRbfInterpolator.h>
 #include <ImathVec.h>
+#include <cstdlib>
 
 using namespace std;
 

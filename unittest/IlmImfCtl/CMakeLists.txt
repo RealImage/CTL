@@ -1,13 +1,13 @@
 
-include_directories( ${OpenEXR_INCLUDE_DIRS} )
-link_directories( ${OpenEXR_LIBRARY_DIRS} )
+include_directories( ${IlmBase_INCLUDE_DIRS} )
+link_directories( ${IlmBase_LIBRARY_DIRS} ${OpenEXR_LIBRARY_DIRS})
 
 include_directories( "${CMAKE_CURRENT_SOURCE_DIR}"
-                     "${PROJECT_SOURCE_DIR}/lib/IlmCtl" 
-                     "${PROJECT_SOURCE_DIR}/lib/IlmCtlMath" 
-                     "${PROJECT_SOURCE_DIR}/lib/IlmCtlSimd" 
+                     "${PROJECT_SOURCE_DIR}/lib/IlmCtl"
+                     "${PROJECT_SOURCE_DIR}/lib/IlmCtlMath"
+                     "${PROJECT_SOURCE_DIR}/lib/IlmCtlSimd"
                      "${PROJECT_SOURCE_DIR}/lib/IlmImfCtl" )
-                     
+
 
 add_executable(IlmImfCtlTest
     main.cpp

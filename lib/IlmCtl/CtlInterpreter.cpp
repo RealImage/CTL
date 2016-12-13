@@ -59,6 +59,7 @@
 //
 //-----------------------------------------------------------------------------
 
+
 #include <CtlInterpreter.h>
 #include <CtlModule.h>
 #include <CtlModuleSet.h>
@@ -75,9 +76,11 @@
 #include <memory>
 
 #ifdef WIN32
-    #include <io.h>
     #include <stdio.h>
     #include <stdlib.h>
+    #include <io.h>
+    #include <time.h>
+    #include "rand48.h"
 #else
     #include <unistd.h>
 #endif
