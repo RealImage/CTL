@@ -23,7 +23,7 @@ else()
   execute_process(COMMAND git clone git://github.com/openexr/openexr.git ${DEPENDENCIES_DIR}/openexr)
 
   set(IlmBase_SRC_PATH ${DEPENDENCIES_DIR}/openexr/IlmBase)
-  set(IlmBase_BUILD_PATH ${DEPENDENCIES_DIR}/openexr-build)
+  set(IlmBase_BUILD_PATH ${DEPENDENCIES_DIR}/openexr-build/IlmBase)
 
   add_subdirectory(${IlmBase_SRC_PATH} ${IlmBase_BUILD_PATH})
 
