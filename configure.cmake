@@ -23,9 +23,9 @@ else()
   execute_process(COMMAND git clone git://github.com/openexr/openexr.git ${DEPENDENCIES_DIR}/openexr)
 
   set(IlmBase_SRC_PATH ${DEPENDENCIES_DIR}/openexr/IlmBase)
-  set(IlmBase_BUILD_PATH ${CMAKE_BINARY_DIR}/build/deps/openexr/IlmBase)
+  set(IlmBase_BUILD_PATH ${DEPENDENCIES_DIR}/openexr-build)
 
-  add_subdirectory(${IlmBase_SRC_PATH})
+  add_subdirectory(${IlmBase_SRC_PATH} ${IlmBase_BUILD_PATH})
 
   set(IlmBase_FOUND TRUE)
 
@@ -75,18 +75,15 @@ else()
   message( WARNING "Unable to find OpenEXR libraries, disabling" )
 endif()
 
-find_package( AcesContainer QUIET )
-if ( AcesContainer_FOUND )
-  message( STATUS "Found AcesContainer, version ${AcesContainer_VERSION}" )
-elseif(NOT WIN32)
+if(NOT WIN32)
   message( STATUS "AcesContainer will be acquired" )
 
   execute_process(COMMAND git clone git://github.com/ampas/aces_container.git ${DEPENDENCIES_DIR}/acescontainer)
 
   set(AcesContainer_SRC_PATH ${DEPENDENCIES_DIR}/acescontainer)
-  set(AcesContainer_BUILD_PATH ${CMAKE_BINARY_DIR}/build/deps/acescontainer)
+  set(AcesContainer_BUILD_PATH ${DEPENDENCIES_DIR}/acescontainer-build)
 
-  add_subdirectory(${AcesContainer_SRC_PATH})
+  add_subdirectory(${AcesContainer_SRC_PATH} ${AcesContainer_BUILD_PATH})
 
   set(AcesContainer_FOUND TRUE)
 

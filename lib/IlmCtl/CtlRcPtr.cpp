@@ -96,7 +96,7 @@ throwRcPtrExc (const RcObject *lhs, const RcObject *rhs)
 Mutex &
 rcPtrMutex (RcObject *ptr)
 {
-    return mutexes[reinterpret_cast<unsigned long>(ptr) % NUM_MUTEXES];
+    return mutexes[reinterpret_cast<unsigned long long int>(ptr) % NUM_MUTEXES];
 }
 
 } // namespace Ctl
