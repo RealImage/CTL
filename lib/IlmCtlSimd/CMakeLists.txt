@@ -4,7 +4,8 @@ include_directories( ${IlmBase_INCLUDE_DIRS} )
 link_directories( ${IlmBase_LIBRARY_DIRS} )
 
 add_executable( halfExpLogTable halfExpLogTable.cpp )
-target_link_libraries( halfExpLogTable ${IlmBase_LIBRARIES} )
+target_link_libraries( halfExpLogTable Half )
+add_dependencies( halfExpLogTable Half )
 
 add_custom_command( OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/halfExpLogTable.h"
                     COMMAND halfExpLogTable "${CMAKE_CURRENT_BINARY_DIR}/halfExpLogTable.h" "${CMAKE_CURRENT_BINARY_DIR}/halfExpLog.h"

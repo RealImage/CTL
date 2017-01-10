@@ -14,5 +14,5 @@ add_library( ctldpx
  dpx_rw.cc
 )
 
-target_link_libraries( ctldpx ${IlmBase_LIBRARIES} )
-
+target_link_libraries( ctldpx Iex IlmThread Half )
+add_dependencies( ctldpx Iex IlmThread Half )
