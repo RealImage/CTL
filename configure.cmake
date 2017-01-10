@@ -77,10 +77,8 @@ endif()
 if(NOT WIN32)
   message( STATUS "AcesContainer will be acquired" )
 
-  execute_process(COMMAND git clone git://github.com/ampas/aces_container.git ${DEPENDENCIES_DIR}/acescontainer)
-
-  set(AcesContainer_SRC_PATH ${DEPENDENCIES_DIR}/acescontainer)
-  set(AcesContainer_BUILD_PATH ${DEPENDENCIES_DIR}/acescontainer-build)
+  set(AcesContainer_SRC_PATH ${PROJECT_SOURCE_DIR}/deps/aces_container)
+  set(AcesContainer_BUILD_PATH ${CMAKE_BINARY_DIR}/deps/aces_container)
 
   add_subdirectory(${AcesContainer_SRC_PATH} ${AcesContainer_BUILD_PATH})
 

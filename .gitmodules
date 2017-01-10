@@ -1,3 +1,6 @@
 [submodule "deps/openexr"]
 	path = deps/openexr
 	url = git://github.com/openexr/openexr.git
+[submodule "deps/aces_container"]
+	path = deps/aces_container
+	url = git://github.com/ampas/aces_container.git
