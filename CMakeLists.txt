@@ -47,6 +47,13 @@ foreach( p LIB BIN INCLUDE CMAKE DOC)
   endif()
 endforeach()
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+if (NOT CMAKE_BUILD_TYPE)
+  message(STATUS "No build type selected, default to Release")
+  set(CMAKE_BUILD_TYPE "Release")
+endif()
+
 #Build always static libs
 option(BUILD_SHARED_LIBS "Enable Shared Libraries" OFF)
 option(ENABLE_SHARED "Enable Shared Libraries" OFF)
