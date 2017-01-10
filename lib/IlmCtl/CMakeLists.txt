@@ -33,7 +33,7 @@ endif()
 
 add_library( IlmCtl ${DO_SHARED} ${IlmCtl_SRC_LIST})
 
-target_link_libraries( IlmCtl ${IlmBase_LIBRARIES} )
+target_link_libraries( IlmCtl Iex IlmThread Half )
 
 set_target_properties( IlmCtl PROPERTIES
   VERSION ${CTL_VERSION}
