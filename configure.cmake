@@ -20,10 +20,9 @@ if( IlmBase_FOUND )
   set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} ${IlmBase_LDFLAGS}" )
 else()
   message( STATUS "IlmBase will be acquired" )
-  execute_process(COMMAND git clone git://github.com/openexr/openexr.git ${DEPENDENCIES_DIR}/openexr)
-
-  set(IlmBase_SRC_PATH ${DEPENDENCIES_DIR}/openexr/IlmBase)
-  set(IlmBase_BUILD_PATH ${DEPENDENCIES_DIR}/openexr-build/IlmBase)
+  
+  set(IlmBase_SRC_PATH ${PROJECT_SOURCE_DIR}/deps/openexr/IlmBase)
+  set(IlmBase_BUILD_PATH ${CMAKE_BINARY_DIR}/deps/openexr/IlmBase)
 
   add_subdirectory(${IlmBase_SRC_PATH} ${IlmBase_BUILD_PATH})
 
