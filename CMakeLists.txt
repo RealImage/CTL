@@ -83,7 +83,7 @@ if (OpenEXR_FOUND)
 endif()
 
 # Add all targets to the build-tree export set
-export( TARGETS IlmCtl IlmCtlMath IlmCtlSimd FILE "${PROJECT_BINARY_DIR}/CTLLibraryDepends.cmake" )
+export( TARGETS IlmCtl IlmCtlMath IlmCtlSimd Iex IlmThread Half FILE "${PROJECT_BINARY_DIR}/CTLLibraryDepends.cmake" )
 export( PACKAGE CTL )
 
 # Create a CTLBuildTreeSettings.cmake file for the use from the build tree
