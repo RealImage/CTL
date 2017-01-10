@@ -15,4 +15,3 @@ add_library( ctldpx
 )
 
 target_link_libraries( ctldpx Iex IlmThread Half )
-add_dependencies( ctldpx Iex IlmThread Half )
