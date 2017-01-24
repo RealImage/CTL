@@ -94,7 +94,7 @@ void CtlExc::_explain(const char *text, va_list _ap) {
 	operator=(ptr);
 }
 
-CtlExc::CtlExc(const char *format, ...) throw() {
+CtlExc::CtlExc(const char *format, ...) throw() : Iex::BaseExc("no explanation given.") {
 	va_list ap;
 
 	va_start(ap, format);

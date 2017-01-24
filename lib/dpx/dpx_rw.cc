@@ -56,6 +56,11 @@
 #include "dpx_rw.hh"
 #include <string.h>
 
+#ifdef _MSC_VER 
+#define strncasecmp _strnicmp
+#define strcasecmp _stricmp
+#endif
+
 namespace ctl {
 namespace dpxi {
 

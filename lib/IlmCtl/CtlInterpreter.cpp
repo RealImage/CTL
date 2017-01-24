@@ -85,6 +85,10 @@
     #include <unistd.h>
 #endif
 
+#ifdef _MSC_VER 
+#define snprintf _snprintf
+#endif
+
 using namespace std;
 using namespace Iex;
 using namespace IlmThread;
