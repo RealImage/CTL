@@ -77,6 +77,10 @@
 //
 //-----------------------------------------------------------------------------
 
+#if (_MSC_VER == 1900) // for MSVC 2015 only, fix va_start warning 
+    #define _CRT_NO_VA_START_VALIDATION
+#endif
+
 #include <CtlReadWriteAccess.h>
 #include <CtlAddr.h>
 #include <string>

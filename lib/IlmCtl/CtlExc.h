@@ -63,6 +63,10 @@
 //
 //-----------------------------------------------------------------------------
 
+#if (_MSC_VER == 1900) // for MSVC 2015 only, fix va_start warning 
+    #define _CRT_NO_VA_START_VALIDATION
+#endif
+
 #include <IexBaseExc.h>
 #include <stdarg.h>
 
@@ -80,7 +84,7 @@ class CtlExc : public Iex::BaseExc {
     class name : public base                                    \
     {                                                           \
       public:                                                   \
-      name(const char* text=0, ... ) throw() {                  \
+	  name(const char* text = 0, ...) throw() : base("no explanation given.") { \
             va_list ap;                                         \
             va_start(ap, text);                                 \
             _explain(text, ap);                                 \

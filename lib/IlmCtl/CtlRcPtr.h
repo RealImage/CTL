@@ -243,8 +243,8 @@ RcPtr<T>::unref ()
 	unsigned long n;
 
 	{
-	    IlmThread::Lock lock (rcPtrMutex (_p));
-	    n = --(_p->_n);
+	    IlmThread::Lock lock (rcPtrMutex (reinterpret_cast<Ctl::RcObject*>(_p)));
+		n = --(reinterpret_cast<Ctl::RcObject*>(_p)->_n);
 	}
 
 	if (n == 0)
