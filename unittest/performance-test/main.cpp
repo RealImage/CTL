@@ -68,8 +68,6 @@ int main()
     std::cout << "------------------------" << std::endl;
     std::cout << "Performing test for SIMD" << std::endl;
 
-    avg_time = 0.;
-
     float* result_simd = new float[DATA_SIZE];
 
     Ctl::SimdInterpreter interpreter;
@@ -89,7 +87,7 @@ int main()
     callCtl(interpreter, call, DATA_SIZE, P_MIN, P_MAX, data, result_simd);
     std::chrono::steady_clock::time_point end= std::chrono::steady_clock::now();
 
-    avg_time += (std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count()) / 1000000.0;
+    avg_time = (std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count()) / 1000000.0;
 
     std::cout << "Test for SIMD finished. Elapsed time (sec) = " << avg_time << std::endl;
 
