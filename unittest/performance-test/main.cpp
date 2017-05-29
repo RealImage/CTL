@@ -15,7 +15,7 @@ static const float P_MAX = 9.f;
 
 static const size_t DATA_SIZE = 10000000u;
 
-static const size_t TEST_NUMBER = 10u;
+static const size_t TEST_NUMBER = 100u;
 
 void callCtl(Ctl::SimdInterpreter interpreter,
              Ctl::FunctionCallPtr call,
